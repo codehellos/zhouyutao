@@ -1,37 +1,79 @@
-## Welcome to GitHub Pages
+---
+layout: default
+title: "首页：Home"
+---
+<!-- 
+<h1 class="page-header">
+  <small>
+    {{ site.description }}
+  </small>
+</h1>
+-->
+<!-- Loop output paged posts -->
+<div id="index" class="row">
+    <div class="post-area">
+     	 <div class="post-list-body">
+        <div post-cate="All">
+        <ul class="posts">
+	{% for post in paginator.posts %}
+	<li>	
+	<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+	<span class="date">{{ post.date | date_to_string }}</span>
+	
+	<hr>
+	<p>{% if post.excerpt.size > 32 %}{{ post.excerpt }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 160 }}{% endif %}</p>
+		<p> <a href="{{ post.url }}"><span >阅读全文 &raquo; </span></a></p>
+	<hr>
+	</li>
+	{% endfor %}
+	</ul>
+	<!-- Pager indicator -->
+	<ul class="pager">
+	  {% if paginator.previous_page %} {% if paginator.previous_page == 1 %}
+	  <li class="previous">
+	    <a href="{{ site.url }}/">
+	      &larr; Older
+	    </a>
+	  </li>
+	  {% else %}
+	  <li class="previous">
+	    <a href="{{ site.url }}/page{{ paginator.previous_page }}">
+	      &larr; Older
+	    </a>
+	  </li>
+	  {% endif %} {% endif %} {% if paginator.next_page %}
+	  <li class="next">
+	    <a href="{{ site.url }}/page{{ paginator.next_page }}">
+	      Newer &rarr;
+	    </a>
+	  </li>
+	  {% endif %}
+	</ul>
+	</div>
+	
 
-You can use the [editor on GitHub](https://github.com/codehellos/zhouyutao/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+	 
+       {% for category in site.categories %}
+	<div post-cate="{{category | first}}">
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+          <ul class="posts">
+            {% for posts in category  %}
+              {% for post in posts %}
+                {% if post.url %}
+		<li>
+                  <a href="{{ post.url }}" class="post-list-item">
+                    <h2>{{ post.title }}</h2>
+                    <span class="date">{{ post.date | date: "%b %-d, %Y" }}</span>
+                  </a>
+		</li>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+          </ul>
+	</div>
+        {% endfor %}
+	
+	 </div>
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/codehellos/zhouyutao/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+</div>
+</div>
